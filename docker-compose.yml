@@ -1,0 +1,39 @@
+version: '2'
+services:
+ 
+ wp_samid:
+  container_name: wp_samid
+  build : ./wp/
+  restart: unless-stopped
+  environment:
+   #WORDPRESS_DB_HOST: db_samid:3306
+   WORDPRESS_DB_USER: root
+   WORDPRESS_DB_PASSWORD: diemas040492
+   WORDPRESS_DB_NAME: samid
+  ports: 
+   - "127.0.0.1:8085:80"
+   - "4431:443"
+  links:
+   - db_samid:mysql
+  volumes:
+   - samid_volume:/var/www/html
+ db_samid:
+  container_name: db_samid
+  build: ./db/
+  #image: mysql:5.7
+  # command: --default-authentication-plugin=mysql_native_password
+  restart: unless-stopped
+ # ports:  #diganti langsung links di services wordpress nya 
+  # - "3306:3306"
+ # environment:
+  # MYSQL_ROOT_PASSWORD: diemas040492
+   #MYSQL_DATABASE: samid
+   #MYSQL_USER: samid
+   #MYSQL_PASSWORD: avasta_user
+  volumes:
+   - samid_db_volume:/var/lib/mysql
+
+volumes:
+  samid_volume:
+  samid_db_volume:
+
