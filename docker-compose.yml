@@ -5,6 +5,7 @@ services:
   container_name: wp_samid
   build : ./wp/
   restart: unless-stopped
+  hostname: wp_samid
   environment:
    WORDPRESS_DB_USER: root
    WORDPRESS_DB_PASSWORD: diemas040492
@@ -15,15 +16,16 @@ services:
   links:
    - db_samid:mysql
   volumes:
-   - samid_volume:/var/www/html
+   - samid_wp_volume:/var/www/html
  db_samid:
   container_name: db_samid
   build: ./db/
   restart: unless-stopped
+  hostname: db_samid
   volumes:
    - samid_db_volume:/var/lib/mysql
 
 volumes:
-  samid_volume:
+  samid_wp_volume:
   samid_db_volume:
 
